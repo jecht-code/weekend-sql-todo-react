@@ -17,9 +17,23 @@ router.get('/', (req, res) => {
         });
 });
 // POST
-
-// PUT
+router.post('/', (req, res) => {
+    const todo = req.body;
+    const sqlText = `INSERT INTO "tasktable" ("task", "is_complete") VALUES ($1, $2)`;
+    pool
+        .query(sqlText, [todo.task, todo.is_complete])
+        .then((result) => {
+            console.log('add task', todo);
+            res.sendStatus(201);
+        })
+        .catch((error) => {
+            console.log(`Error making DB query ${sqlText}`, error);
+            res.sendStatus(500); // good server always responds
+        });
+});
 
 // DELETE
+
+// PUT
 
 module.exports = router;
