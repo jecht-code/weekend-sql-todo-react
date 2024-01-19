@@ -33,7 +33,21 @@ router.post('/', (req, res) => {
 });
 
 // DELETE
+router.delete('/:id', (req, res) => {
+    //pool access database
+    const todoId = req.params.id;
+    const queryText = `DELETE FROM "tasktable" WHERE "id" = $1;`;
 
+    pool
+        .query(queryText, [todoId])
+        .then((response) => {
+            res.sendStatus(200);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.sendStatus(500);
+        });
+});
 // PUT
 
 module.exports = router;
