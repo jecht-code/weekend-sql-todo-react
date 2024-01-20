@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import { fetchTodo } from '../../todoApi/todo.api';
 import Header from '../Header/Header';
 import AddTodoForm from '../AddTodoForm/AddtodoForm';
-import { response } from 'express';
+import TodoList from '../TodoList/TodoList';
+import Grid from '@mui/material/Grid';
 
 function App () {
   const [todoList, setTodoList] = useState([]);
@@ -34,12 +35,16 @@ function App () {
     <div>
       <Header title="TO DO LIST!"/>
 
-      <main>
+      <Grid container>
         <AddTodoForm todoRefreshCallback={refreshTodo} />
 
         {/* We render To Do List here */}
-        
-      </main>
+        <TodoList 
+          todoList={todoList}
+          todoRefreshCallback={refreshTodo}
+        />
+
+      </Grid>
     </div>
   );
 

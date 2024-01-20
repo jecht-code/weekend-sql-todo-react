@@ -48,6 +48,21 @@ router.delete('/:id', (req, res) => {
             res.sendStatus(500);
         });
 });
+
 // PUT
+router.put('/:id', (req, res) => {
+    const todoId = req.params.id;
+    const queryText = `UPDATE "tasktable" SET "is_complete" = NOT "is_complete" WHERE "id" = $1;`;
+
+    pool
+        .query(queryText, [todoId])
+        .then((response) => {
+            res.sendStatus(200);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.sendStatus(500);
+        });
+});
 
 module.exports = router;

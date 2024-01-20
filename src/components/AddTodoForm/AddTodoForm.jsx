@@ -1,28 +1,29 @@
 import { useState } from 'react';
 import { postTodo } from '../../todoApi/todo.api';
+import Grid from '@mui/material/Grid';
 
-function AddTodoForm() {
+function AddTodoForm(props) {
     const [taskValue, setTaskValue] = useState('');
-    const [iscompleteValue, setIscompleteValue] = useState('');
+    
 
     const handleSubmitTodo = (event) => {
         event.preventDefault();
         console.log('Values for To Do:', {
             task: taskValue,
-            is_complete: iscompleteValue,
+            is_complete: false,
         });
 
         //post data
         postTodo({
             task: taskValue,
-            is_complete: iscompleteValue,
+            is_complete: false,
         })
             .then((response) => {
                 //on success fetch data
                 props.todoRefreshCallback();
 
                 setTaskValue('');
-                setIscompleteValue('');
+                
             })
             .catch((err) => {
                 console.error('Error:', err);
@@ -30,6 +31,7 @@ function AddTodoForm() {
     };
 
     return (
+        <Grid item container>
         <form onSubmit={handleSubmitTodo}>
             <label>
                 <span>Task:</span>
@@ -37,10 +39,11 @@ function AddTodoForm() {
                 id="task"
                 onChange={(event) => setTaskValue(event.target.value)}
                 value={taskValue} />
-
             </label>
-
+            <button type="submit">Add</button>
         </form>
+        </ Grid>
+
     ); 
 }
 
