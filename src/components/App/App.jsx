@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { fetchTodo } from '../../todoApi/todo.api';
 import Header from '../Header/Header';
-import AddTodoForm from '../AddTodoForm/AddtodoForm';
+import AddTodoForm from '../AddTodoForm/AddTodoForm';
 import TodoList from '../TodoList/TodoList';
 import Grid from '@mui/material/Grid';
 
